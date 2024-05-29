@@ -1,20 +1,18 @@
 const express = require("express");
-const cors = require("cors");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
+const { PORT, DB_URI } = process.env;
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+/* mongodb connection */
+mongoose
+  .connect(`${DB_URI}`)
+  .then(() => console.log(`Connected to DB at ${DB_URI}`))
+  .catch((e) => console.log("Failed to connect to DB", e));
 
 app.get("/", (req, res) => {
   res.json({ message: "HOME PAGE ~~~" });
 });
 
-app.listen(process.env.PORT, () =>
-  console.log(`Server Started at PORT ${process.env.PORT}`)
-);
+app.listen(PORT, () => console.log(`Server Started at PORT ${PORT}`));
