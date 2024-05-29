@@ -1,0 +1,10 @@
+######
+POST http://localhost:8082/user/register
+Content-Type: application/json
+
+{
+    "name": "Aditi Rawat",
+    "email":"rawataditi1993@gmail.com",
+    "password":"aditi@123",
+    "profile": ""
+}
