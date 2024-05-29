@@ -1,6 +1,6 @@
 const bcryptjs = require("bcryptjs");
+const { userService } = require("../services");
 const isEmailTaken = require("../utils/isEmailTaken");
-const { createUser } = require("../services/user.service");
 
 const registerUser = async (req, res) => {
   try {
@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
     };
 
     /* use service layer to create user & return response */
-    createUser(payload);
+    userService.createUser(payload);
     return res.status(200).json({
       message: "User Created Successfully",
       data: payload,

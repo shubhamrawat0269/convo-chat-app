@@ -3,8 +3,8 @@ POST http://localhost:8082/user/register
 Content-Type: application/json
 
 {
-    "name": "Aditi Rawat",
-    "email":"rawataditi1993@gmail.com",
-    "password":"aditi@123",
+    "name": "Kamla Rawat",
+    "email":"kam1972@gmail.com",
+    "password":"kamla@123",
     "profile": ""
 }
