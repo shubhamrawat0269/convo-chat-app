@@ -1,17 +1,17 @@
-const userModel = require("../models/user.model");
+const UserModel = require("../models/user.model");
 
 const createUser = async (user) => {
-  await userModel.create(user);
+  await UserModel.create(user);
 };
 
 const checkUserEmail = async (email) => {
-  const getUserEmail = await userModel.find({ email }).select("-password");
+  const getUserEmail = await UserModel.find({ email }).select("-password");
   // console.log(getUserEmail);
   return getUserEmail;
 };
 
 const getUserById = async (userId) => {
-  const userData = await userModel.findById(userId);
+  const userData = await UserModel.findById(userId);
   return userData;
 };
 
