@@ -1,6 +1,8 @@
-const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
+const httpStatus = require("http-status");
 const { userService } = require("../services");
+const ApiError = require("../utils/ApiError");
 const isEmailTaken = require("../utils/isEmailTaken");
 const { getUserDetailsFromToken } = require("../utils/getUserDetailsFromToken");
 
@@ -8,17 +10,17 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password, profile } = req.body;
 
-    /* checking if the recieved email is exist in Database or not */
     const userDetail = await isEmailTaken(email);
     // console.log(userDetail);
 
     if (userDetail) {
-      return res.status(400).json({
-        message: "Already Exist User",
-      });
+      // return res.status(400).json({
+      //   message: "Already Exist User",
+      // });
+      throw new ApiError(httpStatus.BAD_REQUEST, "Already Exist User");
     }
 
-    /* encrypting password via bcryptjs & create obj payload */
+    /* decrypt password via bcryptjs & create obj payload */
     const salt = await bcryptjs.genSalt(10);
     const hashPassword = await bcryptjs.hash(password, salt);
 
