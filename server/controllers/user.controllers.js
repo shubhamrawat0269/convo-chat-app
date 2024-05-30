@@ -41,4 +41,30 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+const checkMail = async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log(email);
+    const checkMail = await userService.checkUserEmail(email);
+
+    if (!checkMail) {
+      return res.status(400).json({
+        message: "User not exist",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "email verified successfully!!",
+      data: checkMail,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
+module.exports = { registerUser, checkMail };

@@ -4,4 +4,10 @@ const createUser = async (user) => {
   await userModel.create(user);
 };
 
-module.exports = { createUser };
+const checkUserEmail = async (email) => {
+  const getUserEmail = await userModel.find({ email }).select("-password");
+  console.log(getUserEmail);
+  return getUserEmail;
+};
+
+module.exports = { createUser, checkUserEmail };

@@ -3,8 +3,16 @@ POST http://localhost:8082/user/register
 Content-Type: application/json
 
 {
-    "name": "Kamla Rawat",
-    "email":"kam1972@gmail.com",
-    "password":"kamla@123",
+    "name": "Bharat Singh Rawat",
+    "email": "bsrawat1967@gmail.com",
+    "password": "bharat@123",
     "profile": ""
+}
+
+######
+POST http://localhost:8082/user/email
+Content-Type: application/json
+
+{
+    "email": "bsrawat1967@gmail.com",
 }
