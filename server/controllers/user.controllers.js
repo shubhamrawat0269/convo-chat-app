@@ -44,10 +44,9 @@ const registerUser = async (req, res) => {
 const checkMail = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(email);
     const checkMail = await userService.checkUserEmail(email);
 
-    if (!checkMail) {
+    if (checkMail.length === 0) {
       return res.status(400).json({
         message: "User not exist",
         success: false,
