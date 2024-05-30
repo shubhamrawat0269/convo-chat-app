@@ -6,8 +6,13 @@ const createUser = async (user) => {
 
 const checkUserEmail = async (email) => {
   const getUserEmail = await userModel.find({ email }).select("-password");
-  console.log(getUserEmail);
+  // console.log(getUserEmail);
   return getUserEmail;
 };
 
-module.exports = { createUser, checkUserEmail };
+const getUserById = async (userId) => {
+  const userData = await userModel.findById(userId);
+  return userData;
+};
+
+module.exports = { createUser, checkUserEmail, getUserById };

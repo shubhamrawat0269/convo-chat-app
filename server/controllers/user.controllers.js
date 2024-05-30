@@ -1,4 +1,5 @@
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { userService } = require("../services");
 const isEmailTaken = require("../utils/isEmailTaken");
 
@@ -66,4 +67,51 @@ const checkMail = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, checkMail };
+const checkPassword = async (req, res) => {
+  try {
+    const { password, userId } = req.body;
+    // console.log(req.body);
+    const userDetail = await userService.getUserById(userId);
+    // console.log(userDetail);
+
+    const verifyPassowrd = await bcryptjs.compare(
+      password,
+      userDetail.password
+    );
+    // console.log(verifyPassowrd);
+
+    if (!verifyPassowrd) {
+      return res.status(400).json({
+        message: "Please Check Password!!",
+        error: true,
+      });
+    }
+
+    const tokenData = {
+      id: userDetail._id,
+      email: userDetail.email,
+    };
+
+    const token = await jwt.sign(tokenData, process.env.JWT_SECREAT_KEY, {
+      expiresIn: "1d",
+    });
+
+    const cookieOption = {
+      http: true,
+      secure: true,
+    };
+
+    return res.cookie("token", token, cookieOption).status(200).json({
+      message: "login successfully!!",
+      token: token,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
+module.exports = { registerUser, checkMail, checkPassword };
