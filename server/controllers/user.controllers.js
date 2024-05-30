@@ -2,6 +2,7 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { userService } = require("../services");
 const isEmailTaken = require("../utils/isEmailTaken");
+const { getUserDetailsFromToken } = require("../utils/getUserDetailsFromToken");
 
 const registerUser = async (req, res) => {
   try {
@@ -114,4 +115,22 @@ const checkPassword = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, checkMail, checkPassword };
+const userDetails = async (req, res) => {
+  try {
+    // console.log(req.cookies);
+    const token = req.cookies.token || "";
+
+    const user = await getUserDetailsFromToken(token);
+    return res.status(200).json({
+      message: "user detail",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
+module.exports = { registerUser, checkMail, checkPassword, userDetails };
