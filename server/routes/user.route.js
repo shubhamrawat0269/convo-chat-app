@@ -12,5 +12,7 @@ router.post("/password", userController.checkPassword);
 router.get("/user-details", userController.userDetails);
 // logout user
 router.get("/logout", userController.logout);
+// update-user details
+router.post("/update-user", userController.updateUserDetails);
 
 module.exports = router;

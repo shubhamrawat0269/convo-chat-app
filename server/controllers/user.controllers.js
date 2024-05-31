@@ -154,10 +154,34 @@ const logout = async (req, res) => {
   }
 };
 
+const updateUserDetails = async (req, res) => {
+  try {
+    // const { name, profile } = req.body;
+    const token = req.cookies.token || "";
+    const userDetail = await getUserDetailsFromToken(token);
+
+    await userService.updateUserInfo(userDetail._id, req.body);
+
+    const user = await userService.getUserById(userDetail._id);
+    console.log(user);
+    return res.json({
+      message: "user info updated successfully",
+      data: user,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   checkMail,
   checkPassword,
   userDetails,
   logout,
+  updateUserDetails,
 };

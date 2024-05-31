@@ -15,4 +15,12 @@ const getUserById = async (userId) => {
   return userData;
 };
 
-module.exports = { createUser, checkUserEmail, getUserById };
+const updateUserInfo = async (userId, updatedDetails) => {
+  const updatedUserData = await UserModel.updateOne(
+    { _id: userId },
+    updatedDetails
+  );
+  return updatedUserData;
+};
+
+module.exports = { createUser, checkUserEmail, getUserById, updateUserInfo };
