@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ImCross } from "react-icons/im";
 
 const RegisterForm = () => {
   const [userSignupData, setUserSignupData] = useState({
@@ -17,11 +18,6 @@ const RegisterForm = () => {
       ...userSignupData,
       [name]: value,
     });
-  };
-
-  const handleUploadPhoto = (e) => {
-    const file = e.target.files[0];
-    setUploadPhoto(file);
   };
 
   return (
@@ -68,9 +64,16 @@ const RegisterForm = () => {
         <div className="mb-3">
           <label htmlFor="profile">
             <div className="bg-gray-50 cursor-pointer border text-center border-gray-400 px-2 py-2 w-96 rounded-md outline-none placeholder-gray-400">
-              {uploadPhoto?.name
-                ? uploadPhoto?.name
-                : "Select Photo from device"}
+              {uploadPhoto?.name ? (
+                <div className="flex justify-center items-center gap-5">
+                  <span>{uploadPhoto?.name}</span>
+                  <div onClick={() => setUploadPhoto("")}>
+                    <ImCross size={10} />
+                  </div>
+                </div>
+              ) : (
+                "Select Photo from device"
+              )}
             </div>
           </label>
           <input
@@ -78,7 +81,7 @@ const RegisterForm = () => {
             id="profile"
             name="profile"
             placeholder="image url"
-            onChange={handleUploadPhoto}
+            onChange={(e) => setUploadPhoto(e.target.files[0])}
             className="bg-gray-50 border border-gray-400 px-2 py-2 w-96 rounded-md outline-none placeholder-gray-400 hidden"
           />
         </div>
