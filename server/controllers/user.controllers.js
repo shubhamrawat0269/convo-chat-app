@@ -143,7 +143,7 @@ const logout = async (req, res) => {
     };
 
     return res.cookie("token", "", cookieOption).status(200).json({
-      message: "session time out",
+      message: "logout successfully!!!",
       success: true,
     });
   } catch (error) {
