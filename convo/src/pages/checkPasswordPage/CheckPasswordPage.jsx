@@ -37,6 +37,7 @@ const CheckPasswordPage = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
+        localStorage.setItem("token", JSON.stringify(res.data.token));
         navigate("/");
       }
     } catch (error) {

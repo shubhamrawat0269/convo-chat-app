@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -13,6 +14,7 @@ const Home = () => {
       // console.log(res);
 
       if (res.data.success) {
+        localStorage.clear();
         toast.success(res.data.message);
         navigate("/email");
       }
@@ -21,6 +23,28 @@ const Home = () => {
       toast.error(error.response.data.message);
     }
   };
+
+  const fetchUserDetails = async () => {
+    const url = `${import.meta.env.VITE_BACKEND_URL}/user/user-details`;
+
+    const token = JSON.parse(localStorage.getItem("token"));
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    try {
+      const res = await axios.get(url, config);
+      console.log("User Details: ", res);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
   return (
     <div className="">

@@ -73,7 +73,7 @@ const checkMail = async (req, res) => {
 const checkPassword = async (req, res) => {
   try {
     const { password, userId } = req.body;
-    // console.log(req.body);
+    // console.log(req.headers);
     const userDetail = await userService.getUserById(userId);
     // console.log(userDetail);
 
@@ -100,7 +100,7 @@ const checkPassword = async (req, res) => {
     });
 
     const cookieOption = {
-      http: true,
+      httpOnly: true,
       secure: true,
     };
 
@@ -119,10 +119,11 @@ const checkPassword = async (req, res) => {
 
 const userDetails = async (req, res) => {
   try {
-    // console.log(req.cookies);
-    const token = req.cookies.token || "";
-
+    const { authorization } = req.headers;
+    const token = authorization.split(" ")[1];
+    // const token = req.cookies.token || "";
     const user = await getUserDetailsFromToken(token);
+    // console.log(user);
     return res.status(200).json({
       message: "user detail",
       data: user,

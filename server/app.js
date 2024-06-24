@@ -12,7 +12,12 @@ require("dotenv").config();
  */
 const userRoutes = require("./routes/user.route");
 
-app.use(cors());
+const corsOption = {
+  origin: true, //included origin as true
+  credentials: true, //included credentials as true
+};
+
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookiesParser());
 
