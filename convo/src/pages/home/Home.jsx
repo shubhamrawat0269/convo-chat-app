@@ -9,6 +9,8 @@ import {
   signInStart,
   signInSuccess,
 } from "../../store/slices/userSlice";
+import { Sidebar } from "../../components";
+import styles from "./Home.module.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -51,6 +53,7 @@ const Home = () => {
         dispatch(signInSuccess(res.data.data));
       } else if (res.data.logout) {
         dispatch(logout());
+        navigate("/email");
       }
     } catch (error) {
       // console.log(error);
@@ -63,10 +66,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="">
-      <button className="p-2 bg-orange-900 text-white" onClick={handleLogout}>
+    <div className={styles.homeWrapper}>
+      {/* <button className="p-2 bg-orange-900 text-white" onClick={handleLogout}>
         Logout
-      </button>
+      </button> */}
+      <section className="bg-white">
+        <Sidebar />
+      </section>
       {/* Message component  */}
       <section>
         <Outlet />
