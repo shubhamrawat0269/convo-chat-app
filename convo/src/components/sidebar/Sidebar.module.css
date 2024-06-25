@@ -1,5 +1,5 @@
 .sidebarSection {
-    @apply w-full h-full
+    @apply w-full h-full grid grid-cols-[48px,1fr] bg-white
 }
 
 .sidebarWrapper {
@@ -12,4 +12,16 @@
 
 .sidebarBottomIcons {
     @apply w-12 h-12 flex flex-col gap-3 justify-center items-center
+}
+
+.sidebarMessageWrapper {
+    @apply w-full
+}
+
+.sidebarMsgContainer{
+    @apply text-lg font-semibold text-center text-slate-800 px-2 py-1 grid place-content-center h-11
+}
+
+.sidebarMsgInfoContainer{
+    @apply h-[calc(100vh-53px)] overflow-x-hidden overflow-y-auto
 }

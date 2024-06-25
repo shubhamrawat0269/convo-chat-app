@@ -6,7 +6,7 @@ import { BiLogOut } from "react-icons/bi";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Avatar, EditUserModal } from "../../components";
+import { Avatar, Divider, EditUserModal } from "../../components";
 import { handleEditUserModal } from "../../store/slices/userSlice";
 import toast from "react-hot-toast";
 
@@ -67,6 +67,16 @@ const Sidebar = () => {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className={styles.sidebarMessageWrapper}>
+        <div>
+          <h2 className={styles.sidebarMsgContainer}>Message</h2>
+        </div>
+        <Divider />
+        <div className={styles.sidebarMsgInfoContainer}>
+
         </div>
       </div>
 
