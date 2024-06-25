@@ -1,3 +1,15 @@
 .homeWrapper {
     @apply grid lg:grid-cols-[300px,1fr] h-screen max-h-screen bg-slate-800
 }
+
+.taglineWrapper {
+    @apply lg:flex justify-center items-center flex-col gap-5 hidden
+}
+
+.heading {
+    @apply font-bold text-6xl text-white
+}
+
+.para {
+    @apply text-sm text-teal-400
+}

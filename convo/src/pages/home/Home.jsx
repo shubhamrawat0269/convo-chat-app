@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
-import { useSelector, useDispatch } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   logout,
   signInStart,
@@ -15,10 +15,7 @@ import styles from "./Home.module.css";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { loading } = useSelector((state) => state.userData);
-
-  
+  const location = useLocation();
 
   const fetchUserDetails = async () => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/user/user-details`;
@@ -35,7 +32,7 @@ const Home = () => {
       // console.log("User Details: ", res);
       if (res.status === 200) {
         dispatch(signInSuccess(res.data.data));
-      } else if (res.data.logout) {
+      } else if (res.data.data.logout) {
         dispatch(logout());
         navigate("/email");
       }
@@ -51,16 +48,20 @@ const Home = () => {
 
   return (
     <div className={styles.homeWrapper}>
-      {/* <button className="p-2 bg-orange-900 text-white" onClick={handleLogout}>
-        Logout
-      </button> */}
-      <section className="bg-white">
+      <section
+        className={`bg-white ${location.pathname !== "/" && "hidden"} lg:block`}
+      >
         <Sidebar />
       </section>
-      {/* Message component  */}
-      <section>
+      {/* Message Section  */}
+      <section className={`${location.pathname === "/" && "hidden"}`}>
         <Outlet />
       </section>
+
+      <div className={styles.taglineWrapper}>
+        <h1 className={styles.heading}>Convo Chat App</h1>
+        <p className={styles.para}>Select user to send message</p>
+      </div>
     </div>
   );
 };
