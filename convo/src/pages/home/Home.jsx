@@ -18,23 +18,7 @@ const Home = () => {
 
   const { loading } = useSelector((state) => state.userData);
 
-  const handleLogout = async () => {
-    const url = `${import.meta.env.VITE_BACKEND_URL}/user/logout`;
-
-    try {
-      const res = await axios.get(url);
-      // console.log(res);
-
-      if (res.data.success) {
-        localStorage.clear();
-        toast.success(res.data.message);
-        navigate("/email");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
-    }
-  };
+  
 
   const fetchUserDetails = async () => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/user/user-details`;

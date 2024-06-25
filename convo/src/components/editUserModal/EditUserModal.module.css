@@ -5,3 +5,31 @@
 .modalcontainer {
     @apply bg-white p-4 m-1 rounded w-full max-w-sm
 }
+
+.formSection {
+    @apply grid gap-3 mt-3
+}
+
+.formInputBox {
+    @apply flex flex-col gap-1
+}
+
+.formInput {
+    @apply w-full py-1 px-2
+}
+
+.uploadPhoto {
+    @apply my-1 flex items-center gap-4
+}
+
+.btnSection {
+    @apply flex gap-2 ml-auto
+}
+
+.saveBtn {
+    @apply border-teal-500 border bg-teal-900 text-white px-4 py-1
+}
+
+.cancelBtn {
+    @apply border-teal-500 border bg-white text-teal-900 px-4 py-1
+}
