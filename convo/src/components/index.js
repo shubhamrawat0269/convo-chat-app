@@ -5,6 +5,8 @@ import EditUserModal from "./editUserModal/EditUserModal";
 
 import MessagePage from "./messagePage/MessagePage";
 import SearchUserWrapper from "./searchUserWrapper/SearchUserWrapper";
+import CircularLoader from "./circularLoader/CircularLoader";
+import UserCard from "./userCard/UserCard";
 
 export {
   MessagePage,
@@ -13,4 +15,6 @@ export {
   EditUserModal,
   Divider,
   SearchUserWrapper,
+  CircularLoader,
+  UserCard,
 };

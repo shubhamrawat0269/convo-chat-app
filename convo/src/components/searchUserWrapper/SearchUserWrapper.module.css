@@ -1,0 +1,23 @@
+.searchUserWrapper {
+    @apply fixed top-0 bottom-0 left-0 right-0 bg-slate-700 bg-opacity-40 p-2
+}
+
+.searchUserContent {
+    @apply w-full max-w-lg mx-auto mt-10
+}
+
+.inputBox {
+    @apply bg-white rounded h-14 overflow-hidden flex
+}
+
+.searchInput {
+    @apply w-full outline-none py-1 h-full px-4
+}
+
+.searchIcon {
+    @apply h-14 w-14 flex justify-center items-center
+}
+
+.dropdownMenu {
+    @apply bg-white mt-2 w-full p-4 rounded
+}

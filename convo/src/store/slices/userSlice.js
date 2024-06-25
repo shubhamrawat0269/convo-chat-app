@@ -6,6 +6,10 @@ const initialState = {
   editUserOpen: false,
   allUser: [],
   openSearchUser: false,
+  searchUserData: {
+    loading: false,
+    data: [],
+  },
 };
 
 export const userSlice = createSlice({
