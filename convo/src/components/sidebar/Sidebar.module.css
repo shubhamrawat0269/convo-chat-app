@@ -25,3 +25,11 @@
 .sidebarMsgInfoContainer{
     @apply h-[calc(100vh-53px)] overflow-x-hidden overflow-y-auto
 }
+
+.arrowIcon{
+    @apply flex justify-center items-center my-10 text-slate-500
+}
+
+.dummyText{
+    @apply text-lg text-center text-slate-400
+}

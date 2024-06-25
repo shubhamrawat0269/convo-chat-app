@@ -2,18 +2,30 @@ import styles from "./Sidebar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { FaUserPlus } from "react-icons/fa";
+import { FiArrowUpLeft } from "react-icons/fi";
+
 import { BiLogOut } from "react-icons/bi";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Avatar, Divider, EditUserModal } from "../../components";
-import { handleEditUserModal } from "../../store/slices/userSlice";
+import {
+  Avatar,
+  Divider,
+  EditUserModal,
+  SearchUserWrapper,
+} from "../../components";
+import {
+  handleEditUserModal,
+  setOpenSearchUser,
+} from "../../store/slices/userSlice";
 import toast from "react-hot-toast";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentUser, editUserOpen } = useSelector((state) => state.userData);
+  const { currentUser, editUserOpen, allUser, openSearchUser } = useSelector(
+    (state) => state.userData
+  );
 
   const handleLogout = async () => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/user/logout`;
@@ -45,7 +57,11 @@ const Sidebar = () => {
           >
             <IoChatbubbleEllipses size={20} />
           </NavLink>
-          <div title="add friend" className={styles.sidebarIcons}>
+          <div
+            onClick={() => dispatch(setOpenSearchUser(true))}
+            title="add friend"
+            className={styles.sidebarIcons}
+          >
             <FaUserPlus size={20} />
           </div>
         </div>
@@ -76,7 +92,16 @@ const Sidebar = () => {
         </div>
         <Divider />
         <div className={styles.sidebarMsgInfoContainer}>
-
+          {allUser.length === 0 && (
+            <div className="mt-5">
+              <div className={styles.arrowIcon}>
+                <FiArrowUpLeft size={40} />
+              </div>
+              <p className={styles.dummyText}>
+                Explore users to start a conversation
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -85,6 +110,10 @@ const Sidebar = () => {
           onClose={() => dispatch(handleEditUserModal())}
           data={currentUser}
         />
+      )}
+
+      {openSearchUser && (
+        <SearchUserWrapper onClose={() => dispatch(setOpenSearchUser(false))} />
       )}
     </div>
   );

@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   currentUser: null,
   editUserOpen: false,
+  allUser: [],
+  openSearchUser: false,
 };
 
 export const userSlice = createSlice({
@@ -28,6 +30,9 @@ export const userSlice = createSlice({
     handleEditUserModal: (state) => {
       state.editUserOpen = !state.editUserOpen;
     },
+    setOpenSearchUser: (state, action) => {
+      state.openSearchUser = action.payload;
+    },
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   signInSuccess,
   signInFailure,
   logout,
+  setOpenSearchUser,
   handleEditUserModal,
 } = userSlice.actions;
 export default userSlice.reducer;
