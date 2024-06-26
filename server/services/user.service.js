@@ -15,6 +15,13 @@ const getUserById = async (userId) => {
   return userData;
 };
 
+const getUserByNameOrEmail = async (query) => {
+  const userData = await UserModel.find({
+    $or: [{ name: query }, { email: query }],
+  });
+  return userData;
+};
+
 const updateUserInfo = async (userId, updatedDetails) => {
   const updatedUserData = await UserModel.updateOne(
     { _id: userId },
@@ -23,4 +30,10 @@ const updateUserInfo = async (userId, updatedDetails) => {
   return updatedUserData;
 };
 
-module.exports = { createUser, checkUserEmail, getUserById, updateUserInfo };
+module.exports = {
+  createUser,
+  checkUserEmail,
+  getUserById,
+  updateUserInfo,
+  getUserByNameOrEmail,
+};

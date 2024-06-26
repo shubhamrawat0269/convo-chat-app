@@ -14,5 +14,7 @@ router.get("/user-details", userController.userDetails);
 router.get("/logout", userController.logout);
 // update-user details
 router.post("/update-user", userController.updateUserDetails);
+// search-user
+router.post("/search-user", userController.searchUser);
 
 module.exports = router;

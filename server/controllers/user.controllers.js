@@ -136,6 +136,26 @@ const userDetails = async (req, res) => {
   }
 };
 
+const searchUser = async (req, res) => {
+  try {
+    const { search } = req.body;
+    const query = new RegExp(search, "i", "g");
+
+    const userDetail = await userService.getUserByNameOrEmail(query);
+
+    return res.status(200).json({
+      message: "all user",
+      data: userDetail,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || error,
+      error: true,
+    });
+  }
+};
+
 const logout = async (req, res) => {
   try {
     const cookieOption = {
@@ -185,4 +205,5 @@ module.exports = {
   userDetails,
   logout,
   updateUserDetails,
+  searchUser,
 };
