@@ -21,3 +21,7 @@
 .dropdownMenu {
     @apply bg-white mt-2 w-full p-4 rounded
 }
+
+.closeBtn {
+    @apply absolute top-0 right-0 text-2xl p-2 lg:text-4xl text-white
+}

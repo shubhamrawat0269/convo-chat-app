@@ -45,6 +45,7 @@ const Home = () => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
+  console.log(location.pathname);
 
   return (
     <div className={styles.homeWrapper}>
@@ -58,7 +59,11 @@ const Home = () => {
         <Outlet />
       </section>
 
-      <div className={styles.taglineWrapper}>
+      <div
+        className={`${
+          location.pathname != "/" ? "hidden" : "lg:flex"
+        } justify-center items-center flex-col gap-5 `}
+      >
         <h1 className={styles.heading}>Convo Chat App</h1>
         <p className={styles.para}>Select user to send message</p>
       </div>

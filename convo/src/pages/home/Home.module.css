@@ -3,7 +3,7 @@
 }
 
 .taglineWrapper {
-    @apply lg:flex justify-center items-center flex-col gap-5 hidden
+    @apply lg:flex justify-center items-center flex-col gap-5 
 }
 
 .heading {
