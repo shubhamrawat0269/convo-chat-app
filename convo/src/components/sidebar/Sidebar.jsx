@@ -19,6 +19,7 @@ import {
   setOpenSearchUser,
 } from "../../store/slices/userSlice";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Sidebar = () => {
   const dispatch = useDispatch();

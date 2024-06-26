@@ -1,7 +1,6 @@
 import React from "react";
 
 const Avatar = ({ name, width, height, imgUrl }) => {
-  console.log(imgUrl);
   return (
     <div>
       {imgUrl ? (
