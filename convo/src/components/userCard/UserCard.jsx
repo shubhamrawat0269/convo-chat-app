@@ -11,7 +11,12 @@ const UserCard = ({ key, user, onClose }) => {
       className={styles.cardWrapper}
     >
       <div>
-        <Avatar width={50} name={user?.name} imgUrl={user.profile} />
+        <Avatar
+          userId={user?._id}
+          width={50}
+          name={user?.name}
+          imgUrl={user.profile}
+        />
       </div>
       <div>
         <h3>{user?.name}</h3>

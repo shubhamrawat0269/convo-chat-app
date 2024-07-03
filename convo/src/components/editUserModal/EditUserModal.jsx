@@ -5,7 +5,7 @@ import { Avatar, Divider } from "../../components";
 import uploadFile from "../../utils/helper/uploadFile";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   handleEditUserModal,
   signInSuccess,
@@ -14,6 +14,7 @@ import {
 const EditUserModal = ({ onClose, data }) => {
   const uploadPhotoRef = useRef();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.userData);
   const [userData, setUserData] = useState({
     name: data?.name,
     profile: data?.profile,
@@ -91,7 +92,12 @@ const EditUserModal = ({ onClose, data }) => {
           <div>
             <div>Photo:</div>
             <div className={styles.uploadPhoto}>
-              <Avatar width={50} name={data?.name} imgUrl={userData.profile} />
+              <Avatar
+                userId={currentUser?._id}
+                width={50}
+                name={data?.name}
+                imgUrl={userData?.profile}
+              />
               <label htmlFor="profile">
                 <button
                   className="font-semibold"

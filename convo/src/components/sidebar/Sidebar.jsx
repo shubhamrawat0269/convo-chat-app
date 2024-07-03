@@ -73,6 +73,7 @@ const Sidebar = () => {
                 <Avatar
                   width={35}
                   height={40}
+                  userId={currentUser?._id}
                   name={currentUser?.name}
                   imgUrl={currentUser?.profile}
                 />
