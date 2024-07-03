@@ -6,11 +6,13 @@ import { useDispatch } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   logout,
+  setOnlineUser,
   signInStart,
   signInSuccess,
 } from "../../store/slices/userSlice";
 import { Sidebar } from "../../components";
 import styles from "./Home.module.css";
+import io from "socket.io-client";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -45,7 +47,23 @@ const Home = () => {
   useEffect(() => {
     fetchUserDetails();
   }, []);
-  console.log(location.pathname);
+
+  useEffect(() => {
+    const socketConnection = io(import.meta.env.VITE_BACKEND_URL, {
+      auth: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    socketConnection.on("onlineuser", (data) => {
+      // console.log(data);
+      dispatch(setOnlineUser(data));
+    });
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
 
   return (
     <div className={styles.homeWrapper}>

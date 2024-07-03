@@ -11,6 +11,7 @@ const initialState = {
     data: [],
   },
   searchUserInput: null,
+  onlineUser: [],
 };
 
 export const userSlice = createSlice({
@@ -45,6 +46,9 @@ export const userSlice = createSlice({
       state.searchUserData.data = action.payload;
       state.searchUserData.loading = false;
     },
+    setOnlineUser: (state, action) => {
+      state.onlineUser = action.payload;
+    },
   },
 });
 
@@ -57,5 +61,6 @@ export const {
   handleEditUserModal,
   handleSearchUserInput,
   setSearchUserData,
+  setOnlineUser,
 } = userSlice.actions;
 export default userSlice.reducer;
