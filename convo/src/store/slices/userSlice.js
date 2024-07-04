@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   currentUser: null,
+  selectedUser: {},
   editUserOpen: false,
   allUser: [],
   openSearchUser: false,
@@ -12,6 +13,7 @@ const initialState = {
   },
   searchUserInput: null,
   onlineUser: [],
+  socketConnection: null,
 };
 
 export const userSlice = createSlice({
@@ -32,6 +34,10 @@ export const userSlice = createSlice({
       localStorage.clear();
       state.currentUser = null;
       state.loading = false;
+      state.onlineUser = [];
+      state.searchUserInput = null;
+      state.openSearchUser = false;
+      state.socketConnection = null;
     },
     handleEditUserModal: (state) => {
       state.editUserOpen = !state.editUserOpen;
@@ -49,6 +55,12 @@ export const userSlice = createSlice({
     setOnlineUser: (state, action) => {
       state.onlineUser = action.payload;
     },
+    setSocketConnection: (state, action) => {
+      state.socketConnection = action.payload;
+    },
+    setSelectedUserData: (state, action) => {
+      state.selectedUser = action.payload;
+    },
   },
 });
 
@@ -62,5 +74,7 @@ export const {
   handleSearchUserInput,
   setSearchUserData,
   setOnlineUser,
+  setSocketConnection,
+  setSelectedUserData,
 } = userSlice.actions;
 export default userSlice.reducer;

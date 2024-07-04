@@ -7,6 +7,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   logout,
   setOnlineUser,
+  setSocketConnection,
   signInStart,
   signInSuccess,
 } from "../../store/slices/userSlice";
@@ -56,9 +57,10 @@ const Home = () => {
     });
 
     socketConnection.on("onlineuser", (data) => {
-      // console.log(data);
       dispatch(setOnlineUser(data));
     });
+
+    dispatch(setSocketConnection(socketConnection));
 
     return () => {
       socketConnection.disconnect();

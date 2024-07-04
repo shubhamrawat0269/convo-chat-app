@@ -1,6 +1,9 @@
 const express = require("express");
 const { Server } = require("socket.io");
 const http = require("http");
+
+const { userService } = require("../services");
+
 const { getUserDetailsFromToken } = require("../utils/getUserDetailsFromToken");
 
 const app = express();
@@ -26,11 +29,26 @@ io.on("connection", async (socket) => {
 
   // create a room
   socket.join(user?.id);
-  onlineUsers.add(user?.id);
+  onlineUsers.add(user?.id?.toString());
 
   io.emit("onlineuser", Array.from(onlineUsers));
 
-  io.on("disconnect", () => {
+  socket.on("message-page", async (userId) => {
+    // console.log(userId);
+    const userDetails = await userService.getUserById(userId);
+    // console.log(userDetails);
+
+    const payload = {
+      id: userDetails?._id,
+      name: userDetails?.name,
+      email: userDetails?.email,
+      profile: userDetails?.profile,
+      online: onlineUsers.has(userId),
+    };
+    socket.emit("message-user", payload);
+  });
+
+  socket.on("disconnect", () => {
     onlineUsers.delete(user?.id);
     console.log("Disconnect User  ", socket.id);
   });
