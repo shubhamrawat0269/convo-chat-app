@@ -75,7 +75,7 @@ const Home = () => {
         <Sidebar />
       </section>
       {/* Message Section  */}
-      <section className={`${location.pathname === "/" && "hidden"}`}>
+      <section className={`${location.pathname === "/" ? "hidden" : ""}`}>
         <Outlet />
       </section>
 

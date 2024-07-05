@@ -1,5 +1,5 @@
 .homeWrapper {
-    @apply grid lg:grid-cols-[300px,1fr] h-screen max-h-screen bg-slate-800
+    @apply grid lg:grid-cols-[300px,1fr] h-screen max-h-screen bg-slate-700
 }
 
 .taglineWrapper {
