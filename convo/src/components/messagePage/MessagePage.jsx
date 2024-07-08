@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import uploadFile from "../../utils/helper/uploadFile";
 import Avatar from "../avatar/Avatar";
 import { setSelectedUserData } from "../../store/slices/userSlice";
+import Loader from "../loader/Loader";
+import { IoMdSend } from "react-icons/io";
 
 const MessagePage = () => {
   const { userId } = useParams();
@@ -18,19 +20,24 @@ const MessagePage = () => {
     videoUrl: "",
   });
   const [uploadedImageVideoModal, setUploadImageVideoModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { socketConnection, selectedUser } = useSelector(
     (state) => state.userData
   );
 
   const handleUploadImage = async (e) => {
     const uploadPhoto = await uploadFile(e.target.files[0]);
-    // console.log(uploadPhoto);
+
+    setLoading(true);
+    setUploadImageVideoModal(!uploadedImageVideoModal);
     setMessage((pre) => {
       return {
         ...pre,
         imageUrl: uploadPhoto?.data?.url,
       };
     });
+    setLoading(false);
   };
 
   const handleUploadImageClear = () => {
@@ -54,12 +61,31 @@ const MessagePage = () => {
   const handleUploadVideo = async (e) => {
     const uploadVideo = await uploadFile(e.target.files[0]);
 
+    setLoading(true);
+    setUploadImageVideoModal(!uploadedImageVideoModal);
+
     setMessage((pre) => {
       return {
         ...pre,
         videoUrl: uploadVideo?.data?.url,
       };
     });
+    setLoading(false);
+  };
+
+  const handleOnChange = (e) => {
+    const { value } = e.target;
+
+    setMessage((pre) => {
+      return {
+        ...pre,
+        text: value,
+      };
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -149,10 +175,12 @@ const MessagePage = () => {
             </div>
           </div>
         )}
+
+        {loading && <Loader />}
       </section>
 
       {/* send message  */}
-      <section className="bg-white h-14">
+      <section className="bg-white h-12 flex items-center px-4">
         <div className="relative">
           <div
             className="cursor-pointer bg-green-700 text-white"
@@ -195,6 +223,23 @@ const MessagePage = () => {
             </div>
           )}
         </div>
+
+        {/* input box  */}
+        <form
+          className="h-full w-full flex gap-2 items-center"
+          onSubmit={onSubmit}
+        >
+          <input
+            type="text"
+            placeholder="Type here message...."
+            className="py-1 px-4 outline-none w-full h-full"
+            value={message?.text}
+            onChange={handleOnChange}
+          />
+          <button>
+            <IoMdSend size={20} />
+          </button>
+        </form>
       </section>
     </>
   );
