@@ -19,10 +19,12 @@ const MessagePage = () => {
     imageUrl: "",
     videoUrl: "",
   });
+
+  const [allMessages, setAllMessages] = useState([]);
   const [uploadedImageVideoModal, setUploadImageVideoModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { socketConnection, selectedUser } = useSelector(
+  const { socketConnection, selectedUser, currentUser } = useSelector(
     (state) => state.userData
   );
 
@@ -86,6 +88,25 @@ const MessagePage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (message?.text || message?.imageUrl || message?.videoUrl) {
+      if (socketConnection) {
+        socketConnection.emit("new message", {
+          sender: currentUser?._id,
+          reciever: userId,
+          text: message?.text,
+          imageUrl: message?.imageUrl,
+          videoUrl: message?.videoUrl,
+          msgByUserId: currentUser?._id,
+        });
+
+        setMessage({
+          text: "",
+          imageUrl: "",
+          videoUrl: "",
+        });
+      }
+    }
   };
 
   useEffect(() => {
@@ -95,6 +116,11 @@ const MessagePage = () => {
       socketConnection.on("message-user", (data) => {
         // console.log("user details", data);
         dispatch(setSelectedUserData(data));
+      });
+
+      socketConnection.on("message", (data) => {
+        // console.log("Message details", data);
+        setAllMessages(data);
       });
     }
   }, [socketConnection, userId]);
@@ -177,6 +203,17 @@ const MessagePage = () => {
         )}
 
         {loading && <Loader />}
+
+        {/* all msg shown here  */}
+        <div className="flex flex-col gap-2">
+          {allMessages?.map((msg, id) => {
+            return (
+              <div key={id} className="px-2 py-1 bg-white rounded w-fit">
+                <p>{msg?.text}</p>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* send message  */}
