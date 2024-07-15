@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar::-webkit-scrollbar {
-    width: 8px;
+::-webkit-scrollbar {
+    width: 5px;
 }
 
-.scrollbar::-webkit-scrollbar-track {
-    @apply bg-slate-900
+::-webkit-scrollbar-track {
+    @apply bg-transparent
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-slate-200 rounded-full
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-400 rounded-full
 }
