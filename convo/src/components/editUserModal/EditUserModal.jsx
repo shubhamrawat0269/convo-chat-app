@@ -94,7 +94,8 @@ const EditUserModal = ({ onClose, data }) => {
             <div className={styles.uploadPhoto}>
               <Avatar
                 userId={currentUser?._id}
-                width={50}
+                width={35}
+                height={35}
                 name={data?.name}
                 imgUrl={userData?.profile}
               />

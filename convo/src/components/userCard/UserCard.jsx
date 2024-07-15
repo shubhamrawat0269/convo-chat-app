@@ -14,6 +14,7 @@ const UserCard = ({ key, user, onClose }) => {
         <Avatar
           userId={user?._id}
           width={50}
+          height={50}
           name={user?.name}
           imgUrl={user.profile}
         />

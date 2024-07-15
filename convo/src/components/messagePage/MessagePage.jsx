@@ -146,7 +146,8 @@ const MessagePage = () => {
             </Link>
             <div>
               <Avatar
-                width={40}
+                width={35}
+                height={35}
                 userId={selectedUser?.id}
                 name={selectedUser?.name}
                 imgUrl={selectedUser?.profile}
@@ -172,7 +173,7 @@ const MessagePage = () => {
       </header>
 
       {/* show all msg  */}
-      <section className="h-[calc(100vh-112px)] overflow-x-hidden overflow-y-auto px-3 py-2">
+      <section className="h-[calc(100vh-105px)] overflow-x-hidden overflow-y-auto px-3 py-2 bg-teal-700">
         {message?.imageUrl && (
           <div className="relative w-full h-full bg-slate-300 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div

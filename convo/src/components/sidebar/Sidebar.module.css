@@ -1,5 +1,5 @@
 .sidebarSection {
-    @apply w-full h-full grid grid-cols-[48px,1fr] bg-white
+    @apply w-full h-full grid grid-cols-[52px,1fr] bg-white
 }
 
 .sidebarWrapper {
@@ -7,7 +7,7 @@
 }
 
 .sidebarIcons {
-    @apply w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-300
+    @apply w-12 h-14 flex justify-center items-center cursor-pointer hover:bg-slate-300
 }
 
 .sidebarBottomIcons {
@@ -19,11 +19,11 @@
 }
 
 .sidebarMsgContainer{
-    @apply text-lg font-semibold text-center text-slate-800 px-2 py-1 grid place-content-center h-11
+    @apply text-lg font-semibold text-center text-slate-800 px-2 py-3 grid place-content-center
 }
 
 .sidebarMsgInfoContainer{
-    @apply h-[calc(100vh-53px)] overflow-x-hidden overflow-y-auto
+    @apply h-[calc(100vh-62px)] overflow-x-hidden overflow-y-auto
 }
 
 .arrowIcon{

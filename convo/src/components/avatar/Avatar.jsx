@@ -11,7 +11,7 @@ const Avatar = ({ userId, name, width, height, imgUrl }) => {
         <img
           style={{ width, height }}
           src={imgUrl}
-          className="rounded-full aspect-square"
+          className="rounded-full"
           alt={imgUrl}
         />
       ) : (
