@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { HiDotsVertical } from "react-icons/hi";
 import { FaAngleLeft, FaImage, FaPlus, FaVideo } from "react-icons/fa6";
@@ -10,6 +10,7 @@ import Avatar from "../avatar/Avatar";
 import { setSelectedUserData } from "../../store/slices/userSlice";
 import Loader from "../loader/Loader";
 import { IoMdSend } from "react-icons/io";
+import moment from "moment";
 
 const MessagePage = () => {
   const { userId } = useParams();
@@ -23,6 +24,16 @@ const MessagePage = () => {
   const [allMessages, setAllMessages] = useState([]);
   const [uploadedImageVideoModal, setUploadImageVideoModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const currentMessageRef = useRef(null);
+
+  useEffect(() => {
+    if (currentMessageRef.current) {
+      currentMessageRef.current.scrollIntoView({
+        behaviour: "smooth",
+        block: "end",
+      });
+    }
+  }, [allMessages]);
 
   const { socketConnection, selectedUser, currentUser } = useSelector(
     (state) => state.userData
@@ -161,9 +172,9 @@ const MessagePage = () => {
       </header>
 
       {/* show all msg  */}
-      <section className="h-[calc(100vh-112px)] overflow-x-hidden overflow-y-auto">
+      <section className="h-[calc(100vh-112px)] overflow-x-hidden overflow-y-auto px-3 py-2">
         {message?.imageUrl && (
-          <div className="relative w-full h-full bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
+          <div className="relative w-full h-full bg-slate-300 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">
             <div
               className="absolute right-4 top-4 text-white cursor-pointer"
               onClick={handleUploadImageClear}
@@ -208,8 +219,17 @@ const MessagePage = () => {
         <div className="flex flex-col gap-2">
           {allMessages?.map((msg, id) => {
             return (
-              <div key={id} className="px-2 py-1 bg-white rounded w-fit">
+              <div
+                key={id}
+                ref={currentMessageRef}
+                className={`px-2 py-1 bg-white rounded w-fit ${
+                  currentUser?._id === msg?.msgByUserId ? "ml-auto" : ""
+                }`}
+              >
                 <p>{msg?.text}</p>
+                <p className="text-xs ml-auto w-fit">
+                  {moment(msg?.createdAt).format("hh:mm")}
+                </p>
               </div>
             );
           })}
