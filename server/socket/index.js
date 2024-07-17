@@ -47,11 +47,24 @@ io.on("connection", async (socket) => {
       online: onlineUsers.has(userId),
     };
     socket.emit("message-user", payload);
+
+    // get previous message
+    const getConversationMessage = await conversationModel
+      .findOne({
+        $or: [
+          { sender: user?.id, reciever: userId },
+          { sender: userId, reciever: user?.id },
+        ],
+      })
+      .populate("messages")
+      .sort({ updatedAt: -1 });
+
+    socket.emit("message", getConversationMessage.messages);
   });
 
   socket.on("new message", async (data) => {
     // check converstiona availabel for both user
-    console.log(data);
+    // console.log(data);
     let conversation = await conversationModel.findOne({
       $or: [
         { sender: data?.sender, reciever: data?.reciever },
@@ -84,16 +97,6 @@ io.on("connection", async (socket) => {
       { $push: { messages: saveMessage?._id } }
     );
     // send all convo to front end client
-
-    const getConversationMessage = await conversationModel
-      .findOne({
-        $or: [
-          { sender: data?.sender, reciever: data?.reciever },
-          { sender: data?.reciever, reciever: data?.sender },
-        ],
-      })
-      .populate("messages")
-      .sort({ updatedAt: -1 });
 
     io.to(data?.sender).emit("message", getConversationMessage.messages);
     io.to(data?.reciever).emit("message", getConversationMessage.messages);
