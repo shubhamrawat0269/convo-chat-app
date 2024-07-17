@@ -223,10 +223,27 @@ const MessagePage = () => {
               <div
                 key={id}
                 ref={currentMessageRef}
-                className={`px-2 py-1 bg-white rounded w-fit ${
+                className={`px-2 py-1 bg-white rounded w-fit md:max-w-sm max-w-[280px] lg:max-w-md ${
                   currentUser?._id === msg?.msgByUserId ? "ml-auto" : ""
                 }`}
               >
+                <div className="w-full">
+                  {msg?.imageUrl && (
+                    <img
+                      src={msg?.imageUrl}
+                      className="w-full h-full object-scale-down"
+                    />
+                  )}
+                </div>
+                <div className="w-full">
+                  {msg?.videoUrl && (
+                    <video
+                      src={msg?.imageUrl}
+                      className="w-full h-full object-scale-down"
+                      controls
+                    />
+                  )}
+                </div>
                 <p>{msg?.text}</p>
                 <p className="text-xs ml-auto w-fit">
                   {moment(msg?.createdAt).format("hh:mm")}
