@@ -175,7 +175,7 @@ const Sidebar = () => {
                         </div>
                       )}
                     </div>
-                    <p className="">{conv?.lastMsg?.text}</p>
+                    <p className="text-ellipsis line-clamp-1">{conv?.lastMsg?.text}</p>
                   </div>
                   <p className="text-sm">{conv?.unseenMsg}</p>
                 </div>

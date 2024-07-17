@@ -99,12 +99,13 @@ io.on("connection", async (socket) => {
     );
     // send all convo to front end client
 
-    const getConversationMessage = await ConversationModel.findOne({
-      $or: [
-        { sender: data?.sender, receiver: data?.receiver },
-        { sender: data?.receiver, receiver: data?.sender },
-      ],
-    })
+    const getConversationMessage = await conversationModel
+      .findOne({
+        $or: [
+          { sender: data?.sender, receiver: data?.receiver },
+          { sender: data?.receiver, receiver: data?.sender },
+        ],
+      })
       .populate("messages")
       .sort({ updatedAt: -1 });
 
