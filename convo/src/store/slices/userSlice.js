@@ -23,6 +23,9 @@ export const userSlice = createSlice({
     signInStart: (state) => {
       state.loading = true;
     },
+    setAllUser: (state, action) => {
+      state.allUser = action.payload;
+    },
     signInSuccess: (state, action) => {
       state.currentUser = action.payload;
       state.loading = false;
@@ -69,6 +72,7 @@ export const {
   signInSuccess,
   signInFailure,
   logout,
+  setAllUser,
   setOpenSearchUser,
   handleEditUserModal,
   handleSearchUserInput,

@@ -11,7 +11,7 @@ const checkUserEmail = async (email) => {
 };
 
 const getUserById = async (userId) => {
-  const userData = await UserModel.findById(userId);
+  const userData = await UserModel.findById(userId).select("-password");
   return userData;
 };
 
