@@ -12,10 +12,15 @@ const getConversation = async (currentUserId) => {
       .populate("reciever");
 
     const conversation = currentUserConversation.map((conv) => {
-      const countUnseenMsg = conv.messages.reduce(
-        (acc, curr) => acc + (curr.seen ? 0 : 1),
-        0
-      );
+      const countUnseenMsg = conv.messages.reduce((acc, curr) => {
+        const msgByUserId = curr?.msgByUserId?.toString();
+
+        if (msgByUserId !== currentUserId) {
+          return acc + (curr.seen ? 0 : 1);
+        } else {
+          return acc;
+        }
+      }, 0);
 
       return {
         _id: conv?._id,

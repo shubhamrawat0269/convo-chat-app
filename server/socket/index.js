@@ -28,10 +28,10 @@ io.on("connection", async (socket) => {
   const token = JSON.parse(socket.handshake.auth.token);
   // console.log(token);
   const user = await getUserDetailsFromToken(token);
-
+  // console.log(user);
   // create a room
-  socket.join(user?.id.toString());
-  onlineUsers.add(user?.id.toString());
+  socket.join(user?.id?.toString());
+  onlineUsers.add(user?.id?.toString());
 
   io.emit("onlineuser", Array.from(onlineUsers));
 
@@ -129,6 +129,37 @@ io.on("connection", async (socket) => {
 
     const conversation = await getConversation(currentUserId);
     socket.emit("conversation", conversation);
+  });
+
+  // seen msg
+  socket.on("seen", async (msgByUserId) => {
+    // console.log("Current User", currentUserId);
+
+    const conversation = await conversationModel.findOne({
+      $or: [
+        { sender: user?._id, receiver: msgByUserId },
+        { sender: msgByUserId, receiver: user?._id },
+      ],
+    });
+
+    const conversationMessageId = conversation?.messages || [];
+
+    const updateMessages = await messagesModel.updateMany(
+      {
+        _id: { $in: conversationMessageId },
+        msgByUserId: msgByUserId,
+      },
+      {
+        $set: { seen: true },
+      }
+    );
+
+    //send conversation
+    const conversationSender = await getConversation(user?._id?.toString());
+    const conversationReceiver = await getConversation(msgByUserId);
+
+    io.to(user?._id?.toString()).emit("conversation", conversationSender);
+    io.to(msgByUserId).emit("conversation", conversationReceiver);
   });
 
   socket.on("disconnect", () => {

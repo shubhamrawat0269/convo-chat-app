@@ -5,13 +5,13 @@ const createUser = async (user) => {
 };
 
 const checkUserEmail = async (email) => {
-  const getUserEmail = await UserModel.find({ email }).select("-password");
+  const getUserEmail = await UserModel.find({ email });
   // console.log(getUserEmail);
   return getUserEmail;
 };
 
 const getUserById = async (userId) => {
-  const userData = await UserModel.findById(userId).select("-password");
+  const userData = await UserModel.findById(userId);
   return userData;
 };
 

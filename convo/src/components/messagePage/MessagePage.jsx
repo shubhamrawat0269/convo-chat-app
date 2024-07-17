@@ -124,6 +124,8 @@ const MessagePage = () => {
     if (socketConnection) {
       socketConnection.emit("message-page", userId);
 
+      socketConnection.emit("seen", userId);
+
       socketConnection.on("message-user", (data) => {
         // console.log("user details", data);
         dispatch(setSelectedUserData(data));

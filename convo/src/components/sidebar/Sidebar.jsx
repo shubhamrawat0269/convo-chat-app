@@ -175,9 +175,14 @@ const Sidebar = () => {
                         </div>
                       )}
                     </div>
-                    <p className="text-ellipsis line-clamp-1">{conv?.lastMsg?.text}</p>
+
+                    <p className="text-ellipsis line-clamp-1">
+                      {conv?.lastMsg?.text}
+                    </p>
                   </div>
-                  <p className="text-sm">{conv?.unseenMsg}</p>
+                  {Boolean(conv?.unseenMsg) && (
+                    <p className="text-sm">{conv?.unseenMsg}</p>
+                  )}
                 </div>
               </Link>
             );
