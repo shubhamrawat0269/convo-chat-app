@@ -95,9 +95,7 @@ const checkPassword = async (req, res) => {
       email: userDetail.email,
     };
 
-    const token = await jwt.sign(tokenData, process.env.JWT_SECREAT_KEY, {
-      expiresIn: "1d",
-    });
+    const token = await jwt.sign(tokenData, process.env.JWT_SECREAT_KEY);
 
     const cookieOption = {
       httpOnly: true,
