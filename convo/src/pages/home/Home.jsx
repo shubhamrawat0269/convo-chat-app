@@ -32,7 +32,7 @@ const Home = () => {
     try {
       dispatch(signInStart());
       const res = await axios.get(url, config);
-      // console.log("User Details: ", res);
+      console.log("User Details: ", res);
       if (res.status === 200) {
         dispatch(signInSuccess(res.data.data));
       } else if (res.data.data.logout) {
@@ -40,8 +40,11 @@ const Home = () => {
         navigate("/email");
       }
     } catch (error) {
-      // console.log(error);
-      toast.error(error.response.data.message);
+      console.log(error.response.data.error);
+      if (error.response.data.error) {
+        dispatch(logout());
+        navigate("/email");
+      }
     }
   };
 
