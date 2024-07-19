@@ -16,7 +16,7 @@ const userRoutes = require("./routes/user.route");
 
 app.use(
   cors({
-    origin: ["https://convo-chat-app-frontend.vercel.app"],
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST"],
     credentials: true,
   })
